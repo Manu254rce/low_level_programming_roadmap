@@ -9,7 +9,7 @@ OBJDIR=obj
 EXECUTABLE=out
 
 SRC=$(SRCDIR)/$(FILE).s
-OBJ=$(OBJDIR)/$(basename $(FILE)).o
+OBJ=$(OBJDIR)/$(FILE).o
 
 all: $(EXECUTABLE)
 
