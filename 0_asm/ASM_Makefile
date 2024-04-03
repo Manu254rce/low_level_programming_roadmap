@@ -1,0 +1,25 @@
+# Vars
+
+ASSEMBLER=nasm
+LINKER=ld
+ASSEMBLER_FLAGS=-f elf
+LINKER_FLAGS=-m elf_i386
+SRCDIR=src
+OBJDIR=obj
+SRC=$(wildcard $(SRCDIR)/*.s)
+OBJ=$(patsubst $(SRCDIR)/%.s,$(OBJDIR)/%.o,$(SRC))
+EXECUTABLE=out
+
+all: $(EXECUTABLE)
+
+$(EXECUTABLE): $(OBJ)
+	$(LINKER) $(LINKER_FLAGS) -o $@ $^
+
+$(OBJDIR)/%.o: $(SRCDIR)/%.s
+	mkdir -p $(OBJDIR)
+	$(ASSEMBLER) $(ASSEMBLER_FLAGS) -o $@ $<
+
+clean:
+	rm -f $(OBJECTS) $(EXECUTABLE)
+
+.PHONY: all clean
