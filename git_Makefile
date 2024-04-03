@@ -2,7 +2,6 @@
 
 commit: 
 	@read -p "Enter commit message: " message; \
-	git pull --rebase; \
 	git commit -m "$$message"; \
 	git push origin HEAD:main
 
