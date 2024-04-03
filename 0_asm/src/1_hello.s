@@ -1,14 +1,14 @@
 section .data
-	num1 db 1
-	num2 db 2
-	num3 db 5
+	num1 DB 1
+	num2 DB 2
+	num3 DB 5
 
 section .text
 global _start
 
 _start:
-	mov bh, [num1]
-	mov ch, [num2]
-	mov dh, [num3]
-	mov eax, 1
-	int 80h
+	MOV bh, [num1]
+	MOV ch, [num2]
+	MOV dh, [num3]
+	MOV eax, 1
+	INT 80h
