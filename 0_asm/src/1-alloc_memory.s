@@ -10,9 +10,10 @@ section .text
 global _start
 
 _start:
-	MOV ebx, [data0]
-	MOV ecx, [data1]
-	MOV edx, [data2]
+	MOV bl, [data0]
+	MOV bh, [data1]
+	MOV ecx, [data2]
+	MOV edx, [data3]
 
 	; sys_exit
 	MOV eax, 1

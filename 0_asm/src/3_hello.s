@@ -1,18 +1,17 @@
-section .bss
-	num RESB 3
+extern printf
+extern exit
+
 section .data
-	num2 DB 3 DUP(2)
+	msg DD "Hello World", 0
+	fmt DB "%s", 10, 0
 
 section .text
+global main
 
-global _start
-
-_start:
-	MOV bl,1
-	MOV bl,[num2]
-	MOV [num],bl
-	MOV [num+1],bl
-	MOV [num+2],bl
-
-	MOV eax,1
-	INT 80h
+main:
+	PUSH msg
+	PUSH fmt
+	CALL printf
+	
+	PUSH 1
+	CALL exit
