@@ -2,7 +2,7 @@
 
 CC=gcc
 ASSEMBLER=nasm
-ASSMBLER_FLAGS=-f -elf
+ASSMBLER_FLAGS=-f elf
 CC_FLAGS=-no-pie -m32
 SRCDIR=src
 OBJDIR=obj
