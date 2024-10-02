@@ -12,3 +12,14 @@ The 32-bit version of x86 Assembly uses general purpose registers like
     - ebx
     - ecx
     - edx
+
+### Running the project files
+
+The files of this project can be run through the use of Makefiles (which in this
+case, is the `ASM_Makefile` and the `GCC_Makefile`)
+
+To run the files with make use
+
+```bash
+make -f ASM_Makefile FILE=<filename>
+```  
