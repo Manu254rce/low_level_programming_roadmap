@@ -32,5 +32,8 @@ make -f GCC_Makefile FILE=<filename>
 
 ### Debugging ASM files
 
+<img width="949" alt="Screenshot 2024-10-03 211533" src="https://github.com/user-attachments/assets/d1ec17cf-2594-4286-a5c9-bcaf9c01c082">
+
+
 NASM x86 files can be debugged using the gdb debugger. This can be done by using the `layout asm` command
 inside the debugger, then setting breakpoints in specific flags and stepping through code
