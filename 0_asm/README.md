@@ -21,13 +21,13 @@ case, is the `ASM_Makefile` and the `GCC_Makefile`)
 To run the files with make use
 
 ```bash
-make -f ASM_Makefile FILE=<filename>
+$-> make -f ASM_Makefile FILE=<filename>
 ``` 
 
 or, if you want to execute with the GCC compiler, use
 
 ```bash
-make -f GCC_Makefile FILE=<filename> 
+$-> make -f GCC_Makefile FILE=<filename> 
 ```
 
 ### Debugging ASM files
@@ -40,9 +40,9 @@ inside the debugger, then setting breakpoints in specific flags and stepping thr
 
 <b>Note</b> 🛑
 
-Debugging NASM code can initially produce AT&T output. To fix this and 'demangle' the variables (make them more human readable), use the following global settings
+Debugging NASM code can initially produce AT&T output. To fix this and 'demangle' the variables (make them more human readable), edit the following global settings in bash
 
 ```bash
-set disassembly-flavor intel
-set print asm-demangle on
+$-> set disassembly-flavor intel
+$-> set print asm-demangle on
 ```
