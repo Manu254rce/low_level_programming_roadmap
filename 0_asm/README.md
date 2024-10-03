@@ -37,3 +37,12 @@ make -f GCC_Makefile FILE=<filename>
 
 NASM x86 files can be debugged using the gdb debugger. This can be done by using the `layout asm` command
 inside the debugger, then setting breakpoints in specific flags and stepping through code
+
+<b>Note</b> 🛑
+
+Debugging NASM code can initially produce AT&T output. To fix this and 'demangle' the variables (make them more human readable), use the following global settings
+
+```bash
+set disassembly-flavor intel
+set print asm-demangle on
+```
