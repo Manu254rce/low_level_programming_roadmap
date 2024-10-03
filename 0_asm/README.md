@@ -22,4 +22,15 @@ To run the files with make use
 
 ```bash
 make -f ASM_Makefile FILE=<filename>
-```  
+``` 
+
+or, if you want to execute with the GCC compiler, use
+
+```bash
+make -f GCC_Makefile FILE=<filename> 
+```
+
+### Debugging ASM files
+
+NASM x86 files can be debugged using the gdb debugger. This can be done by using the `layout asm` command
+inside the debugger, then setting breakpoints in specific flags and stepping through code
