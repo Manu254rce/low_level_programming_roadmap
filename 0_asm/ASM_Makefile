@@ -11,16 +11,20 @@ EXECUTABLE=out
 SRC=$(SRCDIR)/$(FILE).s
 OBJ=$(OBJDIR)/$(basename $(FILE)).o
 
-all: $(EXECUTABLE)
+
+.PHONY: all clean
+
+all: clean $(EXECUTABLE)
 
 $(EXECUTABLE): $(OBJ)
+	@echo "Linking $(OBJ) to create $(EXECUTABLE)"
 	$(LINKER) $(LINKER_FLAGS) -o $@ $^
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.s
+	@echo "Compiling $< to create $@"
 	mkdir -p $(OBJDIR)
 	$(ASSEMBLER) $(ASSEMBLER_FLAGS) -o $@ $<
 
 clean:
+	@echo "Cleaning up..."
 	rm -f $(OBJDIR)/*.o $(EXECUTABLE)
-
-.PHONY: all clean
