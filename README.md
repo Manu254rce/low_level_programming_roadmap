@@ -5,7 +5,8 @@ mastery
 
 Key programming languages include
 
-*   NASM x86
-*   C
-*   Rust
-*   UNIX Shell
+*   NASM x86 💻
+*   C 🖥️
+*   Rust 🦀
+*   Python 🐍
+*   UNIX Shell 🐧
