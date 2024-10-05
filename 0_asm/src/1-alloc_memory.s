@@ -1,4 +1,14 @@
 ; Assembly code that allocates different memory sizes
+;	DB (def. byte)
+;	DW (def. word)
+;	DD (def. word)
+;	DQ (def. quadword)
+;	DT (def. ten bytes) - allocate 10-byte data, not so
+;			      commonly used
+;
+; Move user defined data into registers as
+;	MOV <register>, [data] 
+
 
 section .data
 	data0 DB 10 ; alloc 1-byte
