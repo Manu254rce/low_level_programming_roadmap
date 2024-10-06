@@ -7,12 +7,17 @@ is done for introductory purposes
 
 #### Registers
 
-The 32-bit version of x86 Assembly uses general purpose registers like
+The 32-bit version of x86 Assembly uses general purpose 32-bit registers like;
 
-    - eax
-    - ebx
-    - ecx
-    - edx
+    - eax (accumulator, stores function return values)
+    - ebx (base ptr in mem. addressing)
+    - ecx (loop counter, used in shift/ rotate instructions)
+    - edx (holds partial data from mul/div)
+
+    - esi (src. index ptr for stream ops)
+    - edi (dest. index ptr for stream ops)
+    - esp (stack ptr that points to top)
+    - ebp (base ptr; references func. params and local vars)
 
 ### Running the project files
 
@@ -40,9 +45,11 @@ inside the debugger, then setting breakpoints in specific flags and stepping thr
 
 <b>Note</b> 🛑
 
-Debugging NASM code can initially produce AT&T output. To fix this and 'demangle' the variables (make them more human readable), edit the following global settings in bash
+Debugging NASM code can initially produce AT&T syntax output. To change this
+to more intuitive Intel syntax and 'demangle' the variables (make them more human readable), 
+edit the following global settings in bash
 
 ```bash
-$-> set disassembly-flavor intel
-$-> set print asm-demangle on
+$-> echo "set disassembly-flavor intel" > ~/.gdbinit
+$-> echo "set print asm-demangle on" >> ~/.gdbinit
 ```
