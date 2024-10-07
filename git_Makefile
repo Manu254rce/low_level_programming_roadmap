@@ -1,8 +1,73 @@
 # Makefile that manages git commands
 
-commit: 
-	@read -p "Enter commit message: " message; \
-	git commit -m "$$message"; \
-	git push origin HEAD:main
+# Find the root dir of the git repo
+GIT_ROOT := $(shell git rev-parse --show-toplevel 2>/dev/null)
 
-.PHONY: commit
+# if not in git repo, use the current directory
+ifeq ($(GIT_ROOT),)
+	GIT_ROOT := $(CURDIR)
+endif
+
+FILES ?= .
+
+all: status changes check-remote commit
+
+# check the git status
+status:
+	@echo "\n --- Checking Git status ---"
+	@cd $(GIT_ROOT) && git status
+
+# list all changes and modifications
+changes:
+	@echo "\n --- Listing all changes and modifications ---"
+	@cd $(GIT_ROOT) && git diff --name-status
+
+# check the state of the remote repo
+check-remote:
+	@echo "\n ---Checking remote repository state--- "
+	@cd $(GIT_ROOT) && git fetch
+	@cd $(GIT_ROOT) && \
+	LOCAL=$$(git rev-parse @); \
+	REMOTE=$$(git rev-parse @{u} 2>/dev/null || echo "no upstream"); \
+	if [ "$$REMOTE" = "no upstream" ]; then \
+		echo "No upstream branch set"; \
+	else \
+		BASE=$$(git merge-base @ @{u}); \
+		if [ $$LOCAL = $$REMOTE ]; then \
+			echo "Up to date"; \
+		elif [ $$LOCAL = $$BASE ]; then \
+			echo "Need to pull"; \
+		elif [ $$REMOTE = $$BASE ]; then \
+			echo "Need to push"; \
+		else \
+			echo "Diverged"; \
+		fi; \
+	fi
+
+commit: 
+	@echo "\n --- Committing and pushing changes --- "
+	@echo "Status before staging:"
+	@cd $(GIT_ROOT) && git status --short
+	@echo ""
+	@cd $(GIT_ROOT) && \
+	if [ -n "$$(git status --porcelain)" ]; then \
+		echo "Staging specified changes: $(FILES)"; \
+		git add $(FILES); \
+		echo "\nStatus after staging:"; \
+		git status --short; \
+		read -p "Enter commit message (or press Ctrl C to cancel): " message; \
+		if [ -n "$$(git diff --cached --exit-code)" ]; then \
+			if git commit -m "$$message"; then \
+				echo "\nCommit successful! Pushing changes..."; \
+				git push origin HEAD && echo "Push successful!" || echo "Push failed."; \
+			else \
+				echo "Commit failed."; \
+			fi; \
+		else \
+			echo "No changes staged for commit."; \
+		fi; \
+	else \
+		echo "No changes to commit."; \
+	fi
+
+.PHONY: all status changes check-remote commit
