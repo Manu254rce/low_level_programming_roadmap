@@ -1,6 +1,13 @@
 # Makefile that manages git commands
 
-# Find the root dir of the git repo
+# color codes
+RED=\033[0;31m
+GREEN=\033[0;32m
+YELLOW=\033[0;33m
+CYAN=\033[0;36m
+NC=\033[0m
+
+# find the root dir of the git repo
 GIT_ROOT := $(shell git rev-parse --show-toplevel 2>/dev/null)
 
 # if not in git repo, use the current directory
@@ -14,23 +21,23 @@ all: status changes check-remote commit
 
 # check the git status
 status:
-	@echo "\n --- Checking Git status ---"
+	@echo "\n${CYAN} --- Checking Git status --- ${NC}"
 	@cd $(GIT_ROOT) && git status
 
 # list all changes and modifications
 changes:
-	@echo "\n --- Listing all changes and modifications ---"
+	@echo "\n${CYAN} --- Listing all changes and modifications --- ${NC}"
 	@cd $(GIT_ROOT) && git diff --name-status
 
 # check the state of the remote repo
 check-remote:
-	@echo "\n ---Checking remote repository state--- "
+	@echo "\n${CYAN} ---Checking remote repository state--- ${NC}"
 	@cd $(GIT_ROOT) && git fetch
 	@cd $(GIT_ROOT) && \
 	LOCAL=$$(git rev-parse @); \
-	REMOTE=$$(git rev-parse @{u} 2>/dev/null || echo "no upstream"); \
-	if [ "$$REMOTE" = "no upstream" ]; then \
-		echo "No upstream branch set"; \
+	REMOTE=$$(git rev-parse @{u} 2>/dev/null || echo "${YELLOW}no upstream${NC}"); \
+	if [ "$$REMOTE" = "${YELLOW}no upstream${NC}" ]; then \
+		echo "${YELLOW}No upstream branch set${NC}"; \
 	else \
 		BASE=$$(git merge-base @ @{u}); \
 		if [ $$LOCAL = $$REMOTE ]; then \
@@ -44,24 +51,26 @@ check-remote:
 		fi; \
 	fi
 
+# automatically check ststus on local and remote repo, stage commits and
+# push changes
 commit: 
-	@echo "\n --- Committing and pushing changes --- "
+	@echo "\n${CYAN} --- Committing and pushing changes --- ${NC}"
 	@echo "Status before staging:"
 	@cd $(GIT_ROOT) && git status --short
 	@echo ""
 	@cd $(GIT_ROOT) && \
 	if [ -n "$$(git status --porcelain)" ]; then \
-		echo "Staging specified changes: $(FILES)"; \
+		echo "${YELLOW}Staging specified changes:${NC} $(FILES)"; \
 		git add $(FILES); \
 		echo "\nStatus after staging:"; \
 		git status --short; \
 		read -p "Enter commit message (or press Ctrl C to cancel): " message; \
 		if [ -n "$$(git diff --cached --exit-code)" ]; then \
 			if git commit -m "$$message"; then \
-				echo "\nCommit successful! Pushing changes..."; \
-				git push origin HEAD && echo "Push successful!" || echo "Push failed."; \
+				echo "\n${GREEN}Commit successful! Pushing changes...${NC}"; \
+				git push origin HEAD && echo "${GREEN}Push successful!${NC}" || echo "${RED}Push failed.${NC}"; \
 			else \
-				echo "Commit failed."; \
+				echo ${RED}"Commit failed.${NC}"; \
 			fi; \
 		else \
 			echo "No changes staged for commit."; \
