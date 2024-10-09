@@ -1,13 +1,18 @@
 section .data
-	string1 DB "Manu",0
-	string2 DW "NASM is fun",0
+	num1 DB 5
+	num2 DB 3
 
 section .text
 global _start
 
 _start:
-	MOV bl,[string1]
-	MOV cl, [string2]
+	MOV bl,[num1]
+	MOV cl, [num2]
+	;ADD bl, cl
+
+	;ADC bh, 0
+
+	SUB bl, cl
 	
 	; sys_exit
 	MOV eax, 1

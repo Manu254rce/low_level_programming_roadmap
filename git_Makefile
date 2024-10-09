@@ -31,7 +31,7 @@ changes:
 
 # check the state of the remote repo
 check-remote:
-	@echo "\n${CYAN} ---Checking remote repository state--- ${NC}"
+	@echo "\n${CYAN} --- Checking remote repository state --- ${NC}"
 	@cd $(GIT_ROOT) && git fetch
 	@cd $(GIT_ROOT) && \
 	LOCAL=$$(git rev-parse @); \
@@ -41,13 +41,13 @@ check-remote:
 	else \
 		BASE=$$(git merge-base @ @{u}); \
 		if [ $$LOCAL = $$REMOTE ]; then \
-			echo "Up to date"; \
+			echo "${YELLOW}Up to date${NC}"; \
 		elif [ $$LOCAL = $$BASE ]; then \
-			echo "Need to pull"; \
+			echo "${YELLOW}Need to pull${NC}"; \
 		elif [ $$REMOTE = $$BASE ]; then \
-			echo "Need to push"; \
+			echo "${YELLOW}Need to push${NC}"; \
 		else \
-			echo "Diverged"; \
+			echo "${YELLOW}Diverged${NC}"; \
 		fi; \
 	fi
 
