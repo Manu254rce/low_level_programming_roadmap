@@ -1,7 +1,6 @@
 ## Low Level Programming Roadmap: Assembly x86
 
-This is a roadmap that uses the 32-bit x86 Assembly, for Intel systems (NASM). This
-is done for introductory purposes
+This is a roadmap that uses the 32-bit and 64-bit x86 Assembly, for Intel systems (NASM). This is done for introductory purposes
 
 ### Key concepts
 
