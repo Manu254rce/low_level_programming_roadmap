@@ -3,9 +3,9 @@
 This is a set of projects and programming tasks aimed at low level programming
 mastery
 
-Key programming languages include
+Programming languages include
 
-*   NASM x86 💻
+*   NASM x86 (32 bit and 64 bit) 💻
 *   C 🖥️
 *   Rust 🦀
 *   Python 🐍
