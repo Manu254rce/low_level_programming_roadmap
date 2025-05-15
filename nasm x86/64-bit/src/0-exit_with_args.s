@@ -1,3 +1,5 @@
+
+
 ; Assembly code that exits a program with status 1 in a 64-bit system
 
 ; MOV rax, 60 - call number for the exit syscall (60), move it into syscall numbers register (rax)
@@ -11,6 +13,9 @@
 ; - provides a direct path to the kernel, while INT 80h has to go through 
 ;   the interrupt descriptor table (IDT).
 ; - less overhead in managing registers i.e the syscall instruction uses fewer registers than INT 80h.
+
+; provide a directive for the assembler to use 64-bit mode
+bits 64
 
 section .text
     global _start
