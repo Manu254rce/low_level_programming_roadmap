@@ -1,5 +1,0 @@
-# Vars
-
-CC=gcc
-CC_FLAGS=-Wall -Werror -Wextra -pedantic -Wunused_vars -std=gnu89
-EXEC=out
