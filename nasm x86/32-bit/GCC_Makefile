@@ -1,0 +1,24 @@
+# Vars
+
+CC=gcc
+ASSEMBLER=nasm
+ASSMBLER_FLAGS=-f elf
+CC_FLAGS=-no-pie -m32
+SRCDIR=src
+OBJDIR=obj
+EXEC=output
+
+SRC=$(SRCDIR)/$(FILE).s
+OBJ=$(OBJDIR)/$(basename $(FILE)).o
+
+all: $(EXEC)
+
+$(EXEC): $(OBJ)
+	$(CC) $(CC_FLAGS) -o $@ $^
+
+$(OBJDIR)/%.o: $(SRCDIR)/%.s
+	mkdir -p $(OBJDIR)
+	$(ASSEMBLER) $(ASSEMBLER_FLAGS) -o $@ $^
+
+clean:
+	rm -f $(OBJDIR)/*.o $(EXEC)
